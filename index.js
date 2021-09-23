@@ -160,7 +160,7 @@ let shelfs2 = [
 ]
 let ghosts = [
 	{
-		name:"Фантом",
+		name:"Phantom",
 		freeze:true,
 		emf:true,
 		fingerprints:false,
@@ -169,7 +169,7 @@ let ghosts = [
 		ghostorb: true
 	},
 	{
-		name:"Банши",
+		name:"Banshee",
 		freeze:true,
 		emf:true,
 		fingerprints:true,
@@ -178,7 +178,7 @@ let ghosts = [
 		ghostorb: false
 	},
 	{
-		name:"Джинн",
+		name:"Jinn",
 		freeze:false,
 		emf:true,
 		fingerprints:false,
@@ -187,7 +187,7 @@ let ghosts = [
 		ghostorb: true
 	},
 	{
-		name:"Ревенант",
+		name:"Revenant",
 		freeze:false,
 		emf:true,
 		fingerprints:true,
@@ -196,7 +196,7 @@ let ghosts = [
 		ghostorb: false
 	},
 	{
-		name:"Тень",
+		name:"Shadow",
 		freeze:false,
 		emf:true,
 		fingerprints:false,
@@ -205,7 +205,7 @@ let ghosts = [
 		ghostorb: true
 	},
 	{
-		name:"Они",
+		name:"Oni",
 		freeze:false,
 		emf:true,
 		fingerprints:false,
@@ -214,7 +214,7 @@ let ghosts = [
 		ghostorb: false
 	},
 	{
-		name:"Призрак",
+		name:"Wraith",
 		freeze:true,
 		emf:false,
 		fingerprints:true,
@@ -223,7 +223,7 @@ let ghosts = [
 		ghostorb: false
 	},
 	{
-		name:"Мара",
+		name:"Mare",
 		freeze:true,
 		emf:false,
 		fingerprints:false,
@@ -232,7 +232,7 @@ let ghosts = [
 		ghostorb: true
 	},
 	{
-		name:"Демон",
+		name:"Demon",
 		freeze:true,
 		emf:false,
 		fingerprints:false,
@@ -241,7 +241,7 @@ let ghosts = [
 		ghostorb: false
 	},
 	{
-		name:"Юрей",
+		name:"Yurei",
 		freeze:true,
 		emf:false,
 		fingerprints:false,
@@ -250,7 +250,7 @@ let ghosts = [
 		ghostorb: true
 	},
 	{
-		name:"Полтергейст",
+		name:"Poltergeist",
 		freeze:false,
 		emf:false,
 		fingerprints:true,
@@ -259,7 +259,7 @@ let ghosts = [
 		ghostorb: true
 	},
 	{
-		name:"Дух",
+		name:"Spirit",
 		freeze:false,
 		emf:false,
 		fingerprints:true,
@@ -1306,4 +1306,3 @@ function randomRoomCoords(room){
 		}
 	return [ranX,ranY];
 }
-//git it up

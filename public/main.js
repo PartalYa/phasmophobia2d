@@ -4,10 +4,9 @@
 const socket_config = { transports: ['websocket'], upgrade: false, autoConnect: false };
 const {webFrame, ipcRenderer} = require('electron');
 
-// создания сокета ( объекта подключения к серверу и обмена с ним сообщениями )
 const socket = io(  );
 ipcRenderer.on('hello',(a)=>{
-	console.log(a);
+	//console.log(a);
 })
 socket.on('connect', ()=>{
 	////console.log( 'socket connected' );
@@ -204,7 +203,7 @@ socket.on('connect', ()=>{
 
 	})
 	socket.on('holdingCamera',(holding, pid)=>{
-		console.log('Player' + pid + ' ' +holding)
+		//console.log('Player' + pid + ' ' +holding)
 		if(holding){
 			totalCameras++;
 		}
@@ -238,7 +237,7 @@ socket.on('connect', ()=>{
 		activityCounter.textContent ='Activity: '+act;
 	});
 	socket.on('writingSend',(n)=>{
-		console.log('Book writing incoming');
+		//console.log('Book writing incoming');
 		itemlist[n].itemstate = true;
 		itemsmap.children[n].style.backgroundImage = 'url("items/notebooko.png")';
 	});
@@ -287,7 +286,7 @@ socket.on('connect', ()=>{
 	socket.on('ghostAppear', (c, deg, t)=>{
 		if(!ghostAppeared){
 			ghostAppeared = true;
-			console.log(c);
+			//console.log(c);
 			ghostM.x = c[0];
 			ghostM.y = c[1];
 			ghostM.deg = deg;
@@ -340,10 +339,10 @@ socket.on('connect', ()=>{
 	socket.on('killPlayer', (n,splayers)=>{
 		players = splayers;
 		n = Number(n)
-		console.log('Killing player '+n)
-		console.log('me '+mynum)
+		//console.log('Killing player '+n)
+		//console.log('me '+mynum)
 		if(n == mynum){
-			console.log("I'm dead")
+			//console.log("I'm dead")
 			gamediv.style.display = 'none';
 			logindiv.style.display = 'block';
 			lobbydiv.style.display = 'none';
@@ -403,10 +402,10 @@ socket.on('connect', ()=>{
 		idlestreet.stop();
 		gameStarted = false;
 		if(possibleGhostsArray[line4].name == ghostType.name){
-			namediv.textContent = 'Вы угадали призрака. Призраком был '+possibleGhostsArray[line4].name;
+			namediv.textContent = 'You guessed the ghost. The ghost was a '+possibleGhostsArray[line4].name;
 		}
 		else{
-			namediv.textContent = 'Вы не угадали призрака. Призраком был '+possibleGhostsArray[line4].name;
+			namediv.textContent = "You didn't get the ghost. The ghost was a "+possibleGhostsArray[line4].name;
 		}
 	});
 });
@@ -504,16 +503,16 @@ let idleId;
 let ip;
 let flashlightMode = 0;
 let sanityMapOpen = true;
-let possibleGhostsArray = [{name:'Неизвестно'}];
+let possibleGhostsArray = [{name:'Unknown'}];
 let menu = false;
 let proofs = [
-	'Неизвестно',
-	'ЭМП-5',
-	'Температура замерзания',
-	'Призрачное написание',
-	'Призрачная сфера',
-	'Отпечатки пальцев',
-	'Диктофон'
+	'Unknown',
+	'EMF-5',
+	'Freezing temperatures',
+	'Ghost Writing',
+	'Ghost Orb',
+	'Finger Prints',
+	'Spirit Box'
 ];
 let ghostM = {
 	x: 0,
@@ -1122,7 +1121,7 @@ window.addEventListener('wheel', function(event)
 });
 document.addEventListener("keydown", function (e) {
 	keys[e.keyCode] = true;
-	console.log(e.keyCode);
+	//console.log(e.keyCode);
 	if(gameStarted){
 		switch(e.keyCode){
 			case 27:
@@ -1387,7 +1386,7 @@ document.addEventListener("keydown", function (e) {
 						player_x + 110 > -391 &&
 						player_y < 2577 + oheight &&
 						player_y + 110 > 2577){
-							console.log('Noddd')
+							//console.log('Noddd')
 							if(sanityMapOpen){
 								stuck = true;
 								sanityMap.style.visibility = 'visible';
@@ -1582,24 +1581,6 @@ document.addEventListener("keydown", function (e) {
 				break;
 		}
 	}
-	/*if(e.keyCode == 32){
-		let salt = document.createElement('div');
-		salt.classList.add('salt');
-		itemlist.push({
-		x : player_x,
-		y : player_y,
-		t : 1
-		});
-		itemsmap.append(salt);
-	}
-	if(e.keyCode === 37){
-		player_x-=1;
-	}
-	if(e.keyCode === 39){
-		player_x++;
-	}
-	if(e.keyCOde === )
-	*/
 });
 
 document.addEventListener("keyup", function (e) {
@@ -1760,13 +1741,11 @@ shelfmenu2.addEventListener('click', (e)=>{
 						switch(slots[slotsel].item){
 							case 'shelfsflashlight':
 							case 'shelfsflashlight2':
-								//fogofwar.style.background = 'radial-gradient(circle, transparent,black 345px)';
 								lightMode = false;
 								fogSize = 250;
 								break;
 							case 'shelfflashlight':
 							case 'shelfflashlight2':
-								//fogofwar.style.background = 'radial-gradient(circle, transparent,black 345px)';
 								lightMode = false
 								fogSize = 250;
 								break;
@@ -1818,60 +1797,49 @@ shelfmenu2.addEventListener('click', (e)=>{
 						case 'shelfemf2':
 							document.getElementById('slotitem'+slotsel).style.visibility = 'visible';
 							document.getElementById('slotitem'+slotsel).style.backgroundImage = 'url("items/e0.png")';
-							//document.getElementById('slotitem'+slotsel).style.backgroundSize = '7vh';
 							break;
 						case 'shelfsflashlight2':
 							document.getElementById('slotitem'+slotsel).style.visibility = 'visible';
 							document.getElementById('slotitem'+slotsel).style.backgroundImage = 'url("items/extralightneroff.png")';
-							//document.getElementById('slotitem'+slotsel).style.backgroundSize = '5vh';
 							slots[slotsel].itemstate = false
 							break;
 						case 'shelfflashlight2':
 							document.getElementById('slotitem'+slotsel).style.visibility = 'visible';
 							document.getElementById('slotitem'+slotsel).style.backgroundImage = 'url("items/flashlight.png")';
-							//document.getElementById('slotitem'+slotsel).style.backgroundSize = '5vh';
 							slots[slotsel].itemstate = false
 							break;
 						case 'shelfbook2':
 							document.getElementById('slotitem'+slotsel).style.visibility = 'visible';
 							document.getElementById('slotitem'+slotsel).style.backgroundImage = 'url("items/notebookf.png")';
-							//document.getElementById('slotitem'+slotsel).style.backgroundSize = '9vh';
 							break;
 						case 'shelfcrucifix2':
 							document.getElementById('slotitem'+slotsel).style.visibility = 'visible';
 							document.getElementById('slotitem'+slotsel).style.backgroundImage = 'url("items/crucifix.png")';
-							//document.getElementById('slotitem'+slotsel).style.backgroundSize = '9vh';
 							break;
 						case 'shelfphotocamera2':
 							document.getElementById('slotitem'+slotsel).style.visibility = 'visible';
 							document.getElementById('slotitem'+slotsel).style.backgroundImage = 'url("items/photocamera'+slots[slotsel].itemstate+'.png")';
-							//document.getElementById('slotitem'+slotsel).style.backgroundSize = '9vh';
 							break;
 						case 'shelfspiritbox2':
 							document.getElementById('slotitem'+slotsel).style.visibility = 'visible';
 							document.getElementById('slotitem'+slotsel).style.backgroundImage = 'url("items/spiritboxoff.png")';
-							//document.getElementById('slotitem'+slotsel).style.backgroundSize = '6vh';
 							slots[slotsel].itemstate = false
 							break;
 						case 'shelfpills2':
 							document.getElementById('slotitem'+slotsel).style.visibility = 'visible';
 							document.getElementById('slotitem'+slotsel).style.backgroundImage = 'url("items/restful.png")';
-							//document.getElementById('slotitem'+slotsel).style.backgroundSize = '5vh';
 							break;
 						case 'shelfsalt2':
 							document.getElementById('slotitem'+slotsel).style.visibility = 'visible';
 							document.getElementById('slotitem'+slotsel).style.backgroundImage = 'url("items/salt.png")';
-							//document.getElementById('slotitem'+slotsel).style.backgroundSize = '6vh';
 							break;
 						case 'shelfthermometer2':
 							document.getElementById('slotitem'+slotsel).style.visibility = 'visible';
 							document.getElementById('slotitem'+slotsel).style.backgroundImage = 'url("items/thermometeroff.png")';
-							//document.getElementById('slotitem'+slotsel).style.backgroundSize = '4vh';
 							break;
 						case 'shelfufflashlight2':
 							document.getElementById('slotitem'+slotsel).style.visibility = 'visible';
 							document.getElementById('slotitem'+slotsel).style.backgroundImage = 'url("items/ufoff.png")';
-							//document.getElementById('slotitem'+slotsel).style.backgroundSize = '5vh';
 							slots[slotsel].itemstate = false;
 							lightMode = false;
 							uf.style.display='none'
@@ -2087,7 +2055,7 @@ let cameraMassive = [
 	player: 'no',
 }
 ];
-function cameraMode(state){ // Режим просмотра камер
+function cameraMode(state){ // Camera mode
 	//console.log(totalCameras);
 	if(state === false){
 		cameraModeState = !cameraModeState;
@@ -2193,7 +2161,6 @@ function cameraMode(state){ // Режим просмотра камер
 		playerElem.style.visibility = 'visible';
 		itemHand.style.display = 'inline-block';
 		inventory.style.display = 'inline-block';
-		//fogofwar.style.background = beforeFog;
 		if(flashlightMode == 0){
 			lightMode = false;
 		}
@@ -2266,7 +2233,6 @@ function useItem(){
 			}
 			if(slots[slotsel].itemstate){
 				itemHand.style.backgroundImage = 'url("items/extralightneroff.png")';
-				//fogofwar.style.background = 'radial-gradient(circle, transparent,black 345px)';
 				fogSize = 250;
 				slots[slotsel].itemstate = false;
 				lightMode = false;
@@ -2274,7 +2240,6 @@ function useItem(){
 			}
 			else{
 				itemHand.style.backgroundImage = 'url("items/extralightneron.png")';
-				//fogofwar.style.background = 'radial-gradient(circle, transparent,black 600px)';
 				fogSize = 600;
 				light.style.backgroundSize = '2500px 1700px';
 				slots[slotsel].itemstate = true;
@@ -2306,7 +2271,6 @@ function useItem(){
 			play('Button_on_off_1');
 			if(slots[slotsel].itemstate){
 				itemHand.style.backgroundImage = 'url("items/flashlight.png")';
-				//fogofwar.style.background = 'radial-gradient(circle, transparent,black 345px)';
 				fogSize = 250;
 				slots[slotsel].itemstate = false;
 				lightMode = false;
@@ -2314,7 +2278,6 @@ function useItem(){
 			}
 			else{
 				itemHand.style.backgroundImage = 'url("items/flashlighton.png")';
-				//fogofwar.style.background = 'radial-gradient(circle, transparent,black 450px)';
 				fogSize = 600;
 				light.style.backgroundSize = '2500px 2200px';
 				slots[slotsel].itemstate = true;
@@ -2366,8 +2329,7 @@ function useItem(){
 				slots[slotsel].itemstate--;
 				itemHand.style.backgroundImage = 'url("items/photocamera'+slots[slotsel].itemstate+'.png")';
 				socket.emit('photo', mynum);
-				////console.log(slots[slotsel].itemstate)
-				//Сделать рабочий фотик
+				//console.log(slots[slotsel].itemstate)
 			}
 			else{
 				itemHand.style.backgroundImage = 'url("items/photocamera0.png")';
@@ -2389,8 +2351,6 @@ function useItem(){
 				evpOn = true;
 				itemHand.style.backgroundImage = 'url("items/spiritboxon.gif")';
 				slots[slotsel].itemstate = true;
-				//Сделать рабочую камеру
-				//Стандартная камера -1424, 137
 			}
 			break;
 		case 'shelfsalt':
@@ -2473,7 +2433,6 @@ function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 function createPlayer(x,y,me,skin){
-	//console.log('a player has been created');
 	const player = document.createElement('div');
 	player.classList.add('playerClass');
 	if(me){
@@ -2495,7 +2454,7 @@ document.getElementById('namebutton').addEventListener('click',()=>{
 	}
 	else{
 		nameinput.value = '';
-		nameinput.placeholder = 'от 2 до 14';
+		nameinput.placeholder = 'from 2 to 14';
 	}
 });
 document.getElementById('startbutton').addEventListener('click',()=>{
@@ -2605,7 +2564,6 @@ function whatRoom(){
 				curRoom = 13;
 				thirteen = true;
 			}
-			//room.textContent = curRoom;
 			
 			if(thermometeron){
 				if(slots[slotsel].item == 'shelfthermometer' || slots[slotsel].item == 'shelfthermometer2'){
@@ -3164,7 +3122,7 @@ function pickupItem(){
 			let ix = itemlist[i].x;
 			let iy = itemlist[i].y;
 			if(ix < player_x+50 && ix > player_x-50 && iy < player_y+50 && iy > player_y-50 && itemlist[i].t != 1){
-				console.log('Detected '+itemlist[i].t+' nearby. Trying to pick it up')
+				//console.log('Detected '+itemlist[i].t+' nearby. Trying to pick it up')
 				if(itemlist[i].t == 3 && itemlist[i].itemstate){
 					holdingCamera == true;
 				}
