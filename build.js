@@ -7,7 +7,7 @@ var options = {
     'app-copyright': 'PhasmoCorp',
     'app-version': '0.1.3',
     'asar': false,
-    'icon': 'data/icon.ico',
+    'icon': 'icon.ico',
     'name': 'Phasmophobia 2d',
     'out': './releases',
     'overwrite': true,

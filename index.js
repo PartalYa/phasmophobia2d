@@ -3,8 +3,11 @@
 const { app, BrowserWindow, ipcMain } = require( 'electron' );
 const express = require('express');
 const ap = express();
+let win;
 const http = require('http').createServer(ap);
 ipcMain.on('show-dialog',(a,b)=>{
+	win = a;
+	a.reply('hello','Received '+b)
 	console.log('Received start server command')
 	port = b;
 	createServer();	
@@ -366,8 +369,8 @@ function onAppReady(){
 		resizable:true,
 		fullscreenable:true,
 		autoHideMenuBar:true,
-		icon: 'favicon.ico',
-		backgroundColor:'#000000',
+		icon: 'icon.ico',
+		backgroundColor:'#FFFFFF',
 		webPreferences:{
 			enableRemoteModule:true,
 			nodeIntegration:true
@@ -379,7 +382,7 @@ function onAppReady(){
 	
 }
 // конец создания окна приложения ( для игры )
-console.log('Generating player slots')
+//console.log('Generating player slots')
 for(let i = 0; i<4; i++){
 	players.push({
 				name:null,
@@ -396,7 +399,7 @@ for(let i = 0; i<4; i++){
 				sanity: 100,
 				dead: false
 			});
-	console.log('Created player '+ players.length);
+	//console.log('Created player '+ players.length);
 }
 
 
@@ -405,9 +408,9 @@ for(let i = 0; i<4; i++){
 function createServer(){
 
 
-ap.use(express.static('public'));
+ap.use(express.static(__dirname +'/public'));
 io.on('connection', (socket) => {
-  console.log('ioServer : new socket connected');
+  //console.log('ioServer : new socket connected');
 				
 		
 		socket.on('disconnect', ()=>{
@@ -417,7 +420,7 @@ io.on('connection', (socket) => {
 				if(players[i].id==socket.id){
 					players[i].disconnected = true;
 					let isHost = false
-					console.log(players[i].name + ' left');
+					//console.log(players[i].name + ' left');
 					if(players[i].host){
 						isHost = true;
 						players[i].host = false;
@@ -429,14 +432,14 @@ io.on('connection', (socket) => {
 						if(playerCount>0){
 							while(true){
 								if(players[newHost].disconnected === true){
-									console.log('New generated host is disconnected. Generating new one. The number was '+newHost)
+									//console.log('New generated host is disconnected. Generating new one. The number was '+newHost)
 									newHost++;
 									if(newHost >= 4){
 										newHost = 0;
 									}
 								}
 								else{
-									console.log('Resuming with a new host #' + newHost);
+									//console.log('Resuming with a new host #' + newHost);
 									players[newHost].host = true;
 									io.emit('newHost', newHost);
 									break;
@@ -488,8 +491,8 @@ io.on('connection', (socket) => {
 		socket.on('startGame',()=>{
 			gameStarted = true;
 			ghostRoom = getRandom(0,9);
-			console.log(ghostRoom);
-			switch(ghostRoom){
+			//console.log(ghostRoom);
+			/*switch(ghostRoom){
 				case 0:
 					console.log('Boy bedroom');
 				break;
@@ -515,12 +518,13 @@ io.on('connection', (socket) => {
 					console.log('Kitchen');
 				break;
 				case 8:
-					console.log('basement')
-			}
+					console.log('basement');
+				break;
+			}*/ // Print room
 			ghostType = getRandom(0,10);
 			//ghostType = 1
 			//console.log(ghosts[ghostType]);
-			console.log(ghosts[ghostType])
+			//console.log(ghosts[ghostType])
 			if(ghosts[ghostType].fingerprints){
 				footprints = true
 			}
@@ -553,7 +557,7 @@ io.on('connection', (socket) => {
 					totalPlayers++;
 				}
 			}
-			console.log(totalPlayers);
+			//console.log(totalPlayers);
 			setTimeout(()=>{
 				setTimeout(activityLoop, getRandom(4000, 30000)) // Вернуть 4000, 30000
 			},1000); // Вернуть 60000
@@ -637,7 +641,7 @@ io.on('connection', (socket) => {
 			socket.broadcast.emit('shelfs', s1, s2, m)
 		});
 		socket.on('testSound',()=>{
-			console.log('received a test sound command')
+			//console.log('received a test sound command')
 			//scarySound();
 			spiritTalk();
 			//playSound([-1191, -673], 400, true, 'ghostFootstepCarpet'+getRandom(1,9),0.1)
@@ -891,14 +895,14 @@ function sanityDrop(){
 	}
 }
 function writingSend(){
-	console.log('Writing')
+	//console.log('Writing')
 	if(writing){
-		console.log('Ghost has writing')
+		//console.log('Ghost has writing')
 		for(let i = 0; i < itemList.length; i++){
 			if(itemList[i].t == 2){
-				console.log('Book found with itemstate '+itemList[i].itemstate)
+				//console.log('Book found with itemstate '+itemList[i].itemstate)
 				if(itemList[i].itemstate == false){
-					console.log('The book is in room '+ itemList[i].room)
+					//console.log('The book is in room '+ itemList[i].room)
 					if(itemList[i].room == ghostRoom){
 						itemList[i].itemstate = true;
 						io.emit('writingSend',i);
@@ -924,7 +928,7 @@ function ghostHunt(state){
 	clearTimeout(ghostAppearTimeout);
 	ghostAppeared = true;
 	if(!state){
-		console.log('Ghost Hunt Started')
+		//console.log('Ghost Hunt Started')
 		let focusArray = [];
 		for(let i = 0; i<4; i++){
 			if(players[i].room != 13){
@@ -936,20 +940,20 @@ function ghostHunt(state){
 	else{
 		console.log('Ghost Hunt Continued in room')
 	}
-	console.log('FocusArray length '+focusArray.length)
-	console.log(focusArray)
+	//console.log('FocusArray length '+focusArray.length)
+	//console.log(focusArray)
 	if(focusArray.length == 0){
 		focusArray.push(6)
 		coords = randomRoomCoords(getRandom(0,9))
-		console.log(coords);
+		//console.log(coords);
 	}
 	else if(focusArray[0] == 6){
 		coords = randomRoomCoords(getRandom(0,9))
-		console.log(coords);
+		//console.log(coords);
 	}
 	else{
 		coords = randomRoomCoords(players[focusArray[focusPlayer]].room)
-		console.log(coords);
+		//console.log(coords);
 	}
 	if(focusArray[focusPlayer] != 6 && focusArray.length>0){
 		if(players[focusArray[focusPlayer]].item == 'shelfcrucifix' || players[focusArray[focusPlayer]].item == 'shelfcrucifix2'){
@@ -1090,7 +1094,7 @@ function ghostHunt(state){
 }
 function newPrint(){
 	if(footprints){
-		console.log('Creating new footprint')
+		//console.log('Creating new footprint')
 		let spentSalt = null;
 		let newCoords = randomRoomCoords(ghostRoom);
 		let newRotation = getRandom(0,360);
@@ -1123,18 +1127,18 @@ function spiritTalk(){
 }
 function ghostOrbSend(){
 	cameraArray = []
-	console.log('Creating an orb')
+	//console.log('Creating an orb')
 	if(ghostorb){
 		if(!orbTimeout){
 			
 
 			for(let i = 0; i<itemList.length;i++){
 				if(itemList[i].t == 3 && itemList[i].room == ghostRoom && itemList[i].itemstate){
-					console.log('Perfect camera')
+					//console.log('Perfect camera')
 					cameraArray.push({n:i})
 				}
 			}
-			console.log(cameraArray);
+			//console.log(cameraArray);
 			orbTimeout = true;
 			setTimeout(()=>{orbTimeout = false},5500);
 
@@ -1151,7 +1155,7 @@ function emfNP(n){
 	
 	if(n<=emfPower){
 		if(!emfTimeout){
-			console.log('Changing emf with power of '+n)
+			//console.log('Changing emf with power of '+n)
 			emfPower = n;
 			ghost = randomRoomCoords(ghostRoom);
 			io.emit('ghostPlace',ghost, emfPower);
@@ -1162,7 +1166,7 @@ function emfNP(n){
 		}
 	}
 	else{
-		console.log('Changing emf with power of '+n)
+		//console.log('Changing emf with power of '+n)
 		clearTimeout(timeoutVar);
 		emfPower = n;
 		ghost = randomRoomCoords(ghostRoom);
@@ -1178,7 +1182,7 @@ function startFreeze(){
 	if(!frozen){
 		frozen = true;
 		io.emit('freeze', true);
-		console.log('freezing the room')
+		//console.log('freezing the room')
 	}
 }
 function scarySound(){
@@ -1188,8 +1192,8 @@ function mapto(x, inmin, inmax, outmin, outmax){
     return (x - inmin) * (outmax - outmin) / (inmax - inmin) + outmin;
 }
 function playSound(c, p=300,h=false,s , v=0.3){
-	console.log('playSound function started at '+ c[0]+', '+c[1]+' with proximity of '+ p+' and a maximum volume of '+v*100+'%');
-	console.log('playing '+s)
+	//console.log('playSound function started at '+ c[0]+', '+c[1]+' with proximity of '+ p+' and a maximum volume of '+v*100+'%');
+	//console.log('playing '+s)
 	if(!h){
 		for(let i = 0; i < 4; i++){
 			let px,py;
@@ -1203,7 +1207,7 @@ function playSound(c, p=300,h=false,s , v=0.3){
 				vol = 0;
 			}
 			let socketid = players[i].id
-			console.log(vol*100+'%')
+			//console.log(vol*100+'%')
 			io.to(socketid).emit('playSound', s, vol)
 		}
 	}
@@ -1213,7 +1217,7 @@ function playSound(c, p=300,h=false,s , v=0.3){
 			px = players[i].x;
 			py = players[i].y;
 			if(players[i].room != 13){
-				console.log('Found player');
+				//console.log('Found player');
 				let mapX = Math.abs(mapto(px, c[0]-p,c[0]+p,-v,v));
 				let mapY = Math.abs(mapto(py, c[1]-p,c[1]+p,-v,v));
 				let vol = (mapX + mapY)/2;
@@ -1221,7 +1225,7 @@ function playSound(c, p=300,h=false,s , v=0.3){
 				if(vol<0){
 					vol = 0;
 				}
-				console.log(vol*100+'%');
+				//console.log(vol*100+'%');
 				let socketid = players[i].id
 				io.to(socketid).emit('playSound', s, vol)
 			}
@@ -1289,7 +1293,7 @@ function randomRoomCoords(room){
 			break;
 			case 8:
 				roomPart = getRandom(0,2);
-				console.log(roomPart)
+				//console.log(roomPart)
 				if(roomPart == 1){
 					ranX = getRandom(rooms[10].x,rooms[10].x2-80);
 					ranY = getRandom(rooms[10].y,rooms[10].y2-80);
