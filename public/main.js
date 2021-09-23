@@ -1115,7 +1115,7 @@ window.addEventListener('wheel', function(event)
 });
 document.addEventListener("keydown", function (e) {
 	keys[e.keyCode] = true;
-	console.log(e.keyCode);
+	//console.log(e.keyCode);
 	if(gameStarted){
 		switch(e.keyCode){
 			case 37:
