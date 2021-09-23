@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+	<title>
+			Phasmophobia 2d
+	</title>
+	<meta charset='utf-8'>
+	<style>
+		html,body{
+			background-color:white;
+			height:100%;
+			text-align: center;
+			overflow: hidden;
+		}
+		body{
+			padding-top:10%;
+		}
+		#hostbutton{
+			font-family:arial;
+			font-size:30px;
+			width:280px;
+			border:gray 2px solid;
+			vertical-align:middle;
+			padding:6px 12px 6px 12px;
+			color:gray;
+			display:block;
+			margin-top:10px;
+			visibility:visible;
+			margin-left: calc(50% - 154px);
+			-webkit-touch-callout: none;
+		    -webkit-user-select: none;
+		    -khtml-user-select: none;
+		    -moz-user-select: none;
+		    -ms-user-select: none;
+		    user-select: none;
+		}
+		#hostbutton:hover{
+			color:black;
+			border:black 2px solid;
+		}
+		#connectbutton{
+			font-family:arial;
+			font-size:30px;
+			width:280px;
+			border:gray 2px solid;
+			vertical-align:middle;
+			padding:6px 12px 6px 12px;
+			color:gray;
+			display:block;
+			margin-top:10px;
+			visibility:visible;
+		    margin-left: calc(50% - 154px);
+		    -webkit-touch-callout: none;
+		    -webkit-user-select: none;
+		    -khtml-user-select: none;
+		    -moz-user-select: none;
+		    -ms-user-select: none;
+		    user-select: none;
+		}
+		#connectbutton:hover{
+			color:black;
+			border:black 2px solid;
+		}
+		input{
+			width:300px;
+			margin-top:20px;
+			height:40px;
+			font-family:arial;
+			font-size:30px;
+			border:none;
+			border: 2px solid gray;
+		}
+		#connectdiv{
+			margin-top:30px;
+		}
+	</style>
+	
+</head>
+<body>
+	<div id='hostdiv'>
+		<input id='hostinput' placeholder='Port'>
+		<div id='hostbutton'>
+			<div id='hostbuttontext'>
+				Host
+			</div>
+		</div>
+	</div>
+	<div id='connectdiv'>
+		<input id='connectinput' placeholder='IP address'>
+		<div id='connectbutton'>
+			<div id='connectbuttontext'>
+				Connect
+			</div>
+		</div>
+	</div>
+	<script defer>
+		const ipc = require('electron').ipcRenderer;
+		ipc.send('hello','i want to fucking die');
+		ipc.on('dialog-shown', () => { console.log('Yes') });
+		ipc.on('hello',(event, arg)=>{
+			console.log(arg);
+		})
+		document.getElementById('hostbutton').addEventListener('click',()=>{
+			let port = Number(hostinput.value);
+			if(port > 99){
+				ipc.send('show-dialog', Number(port));
+				setTimeout(()=>{
+					window.location.href = 'http://localhost:'+port+'/';
+				},1);
+			}
+			
+		});
+		document.getElementById('connectbutton').addEventListener('click',()=>{
+				setTimeout(()=>{
+					window.location.href = 'http://'+connectinput.value;
+				},1);
+		});
+	</script>
+</body>
+</html>

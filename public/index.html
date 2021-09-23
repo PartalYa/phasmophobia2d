@@ -1,0 +1,274 @@
+<!doctype html>
+
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<link rel='stylesheet' href='css.css'>
+		<title>
+			Phasmophobia 2d
+		</title>
+		<script defer src = 'funcs.js'></script>
+		<script defer src='obstacles.js'></script>
+		<script defer src='sounds.js'></script>
+		<script defer src='regExpEngine.js'></script>
+		<script defer src='SeamlessLoop.js'></script>
+		<script src="/Howl/howler.js/dist/howler.js"></script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js' ></script>
+	</head>
+	<body id='bodyid'>
+		<div id='logindiv'>
+			<div id='namediv'>
+			<div id='name'>
+				Введите имя
+			</div>
+			<input id='nameinput'>
+			<div id='namebutton'>
+			Продолжить
+			</div>
+			</div>
+			<div id='lobbydiv'>
+				<div class='lobbyplayer' id='lobbyplayer0'>
+				<div class='lobbyplayername' id='lobbyplayername0'>
+				Pepega
+				</div>
+				</div>
+				<div class='lobbyplayer' id='lobbyplayer1'>
+				<div class='lobbyplayername' id='lobbyplayername1'>
+				</div>
+				</div>
+				<div class='lobbyplayer' id='lobbyplayer2'>
+				<div class='lobbyplayername' id='lobbyplayername2'>
+				</div>
+				</div>
+				<div class='lobbyplayer' id='lobbyplayer3'>
+				<div class='lobbyplayername' id='lobbyplayername3'>
+				</div>
+				</div>
+				<div id='startbutton'>
+				<div id='startbuttontext'>
+					Начать игру
+				</div>
+				</div>
+			</div>
+		</div>
+		<div id='gamediv'>
+			<div id='light'>
+			</div>
+			<span id = 'coords'>
+			</span>
+			<span id = 'room'>
+			</span>
+			<div id = 'map'>
+			</div>
+			<div id='playerHitbox'>
+			</div>
+			<div id='playerElem'>
+			</div>
+			<div id='cameraDate'>
+				2020/02/20
+			</div>
+			<div id='cameraNum'>
+				0/0
+			</div>
+			<div id='fogofwar'>
+			</div>
+			<div id='ufc'>
+			</div>
+			<div id='uf'>
+			</div>
+			<div id='itemHand'>
+			</div>
+			<div id='playerMap'>
+			</div>
+			<div id = 'itemsmap'>
+			</div>
+			<div id='sanityMap'>
+				<div id='sanityText'>
+					Рассудок группы
+				</div>
+				<div id='splayer1' class='splayer'>
+					<div id='splayername1' class='splayername'>
+						Player 1
+					</div>
+					<div id='splayersanity1' class='splayersanity'>
+						100%
+					</div>
+					<div id='brain1' class='brain'>
+					</div>
+				</div>
+				<div id='splayer2' class='splayer'>
+					<div id='splayername2' class='splayername'>
+						Player 1
+					</div>
+					<div id='splayersanity2' class='splayersanity'>
+						100%
+					</div>
+					<div id='brain2' class='brain'>
+					</div>
+				</div>
+				<div id='splayer3' class='splayer'>
+					<div id='splayername3' class='splayername'>
+						Player 1
+					</div>
+					<div id='splayersanity3' class='splayersanity'>
+						100%
+					</div>
+					<div id='brain3' class='brain'>
+					</div>
+				</div>
+				<div id='splayer4' class='splayer'>
+					<div id='splayername4' class='splayername'>
+						Player 1
+					</div>
+					<div id='splayersanity4' class='splayersanity'>
+						100%
+					</div>
+					<div id='brain4' class='brain'>
+					</div>
+				</div>
+
+			</div>
+			<div id='miniMap'>
+				<div class='miniPlayer'>
+				</div>
+				<div class='miniPlayer'>
+				</div>
+				<div class='miniPlayer'>
+				</div>
+				<div class='miniPlayer'>
+				</div>
+				<div id="activityCounter" style="
+				    color: red;
+				    font-family: 'vcr';
+				    position: absolute;
+				    top: 0.7vw;
+				    left: 1vw;
+				    font-size: 3vw;
+				    z-index: 70;
+				    text-shadow: 0 0 3vw red;
+				">Activity: 0</div>
+			</div>
+			<div id='inventory'>
+				<div id='slot0' class='slot'>
+					<div class='slotitem' id='slotitem0'>
+					</div>
+				</div>
+				<div id='slot1' class='slot'>
+					<div class='slotitem' id='slotitem1'>
+					</div>
+				</div>
+				<div id='slot2' class='slot'>
+					<div class='slotitem' id='slotitem2'>
+					</div>
+				</div>
+				<div id='slot3' class='slot'>
+					<div class='slotitem' id='slotitem3'>
+					</div>
+				</div>
+			</div>
+			<div id='orbmap'>
+			</div>
+			<div id='ghost'>
+			</div>
+			<div id='journalmenu'>
+				<section id='leftPage'>
+					<div id='lpText1' class='lpText'>
+						Видеокамера
+					</div>
+					<div id='lpText2' class='lpText'>
+						УФ фонарь
+					</div>
+					<div id='lpText3' class='lpText'>
+						Датчик ЭМП
+					</div>
+					<div id='lpText4' class='lpText'>
+						Книга
+					</div>
+					<div id='lpText5' class='lpText'>
+						Диктофон
+					</div>
+					<div id='lpText6' class='lpText'>
+						Термометр
+					</div>
+				</section>
+				<section id='line1' class='journalSection'>
+                    <div id='line1l' class='linel'></div>
+                    <div id='line1p' class='linep'>EMF 5</div>
+                    <div id='line1r' class='liner'></div>
+                </section>
+                <section id='line2' class='journalSection'>
+                    <div id='line2l' class='linel'></div>
+                    <div id='line2p' class='linep'>Freezing temperatures</div>
+                    <div id='line2r' class='liner'></div>
+                </section>
+                <section id='line3' class='journalSection'>
+                    <div id='line3l' class='linel'></div>
+                    <div id='line3p' class='linep'>Ghost Writing</div>
+                    <div id='line3r' class='liner'></div>
+                </section>
+                <section id='line4' class='journalSection'>
+                    <div id='line4l' class='linel'></div>
+                    <div id='line4p' class='linep'>Ничего</div>
+                    <div id='line4r' class='liner'></div>
+                </section>
+			</div>
+			<div id = 'shelfmenu'>
+				<div class = 'shelfitem' id='shelfcamera'>
+				</div>
+				<div class = 'shelfitem' id='shelfemf'>
+				</div>
+				<div class = 'shelfitem' id='shelfsflashlight'>
+				</div>
+				<div class = 'shelfitem' id='shelfflashlight'>
+				</div>
+				<div class = 'shelfitem' id='shelfbook'>
+				</div>
+				<div class = 'shelfitem' id='shelfcrucifix'>
+				</div>
+				<div class = 'shelfitem' id='shelfphotocamera'>
+				</div>
+				<div class = 'shelfitem' id='shelfspiritbox'>
+				</div>
+				<div class = 'shelfitem' id='shelfpills'>
+				</div>
+				<div class = 'shelfitem' id='shelfsalt'>
+				</div>
+				<div class = 'shelfitem' id='shelfthermometer'>
+				</div>
+				<div class = 'shelfitem' id='shelfufflashlight'>
+				</div>
+			</div>
+			<div id = 'shelfmenu2'>
+				<div class = 'shelfitem' id='shelfcamera2'>
+				</div>
+				<div class = 'shelfitem' id='shelfemf2'>
+				</div>
+				<div class = 'shelfitem' id='shelfsflashlight2'>
+				</div>
+				<div class = 'shelfitem' id='shelfflashlight2'>
+				</div>
+				<div class = 'shelfitem' id='shelfbook2'>
+				</div>
+				<div class = 'shelfitem' id='shelfcrucifix2'>
+				</div>
+				<div class = 'shelfitem' id='shelfphotocamera2'>
+				</div>
+				<div class = 'shelfitem' id='shelfspiritbox2'>
+				</div>
+				<div class = 'shelfitem' id='shelfpills2'>
+				</div>
+				<div class = 'shelfitem' id='shelfsalt2'>
+				</div>
+				<div class = 'shelfitem' id='shelfthermometer2'>
+				</div>
+				<div class = 'shelfitem' id='shelfufflashlight2'>
+				</div>
+			</div>
+			<section id='soundSection'>
+				<audio loop src='sounds/idlehouse.wav' id='houseLoop' preload='auto'></audio>
+				<audio loop src='sounds/idlestreet.m4a' id='streetLoop' preload='auto'></audio>
+				<audio loop src='sounds/EVP White Noise Loop.wav' id='evploop' preload='auto'></audio>
+			</section>
+	</div>
+	</body>
+</html>

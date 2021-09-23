@@ -1,0 +1,20 @@
+{
+  "name": "phasmophobia2d",
+  "version": "0.1.4",
+  "description": "Great game about ghosts",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js"
+  },
+  "author": "PhasmoCorp",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-packager": "^15.2.0"
+  },
+  "dependencies": {
+    "electron": "^11.3.0",
+    "express": "^4.17.1",
+    "howler": "^2.2.1",
+    "socket.io": "^3.1.1"
+  }
+}
