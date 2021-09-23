@@ -1,5 +1,9 @@
 'use strict';
-
+let ip;
+require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+	console.log('addr: ' + add);
+	ip = add;
+  })
 const { app, BrowserWindow, ipcMain } = require( 'electron' );
 const express = require('express');
 const ap = express();
@@ -543,13 +547,8 @@ io.on('connection', (socket) => {
 			}
 
 			io.emit('startGameS',ghostRoom,ghosts[ghostType])
-			/*if(footprints){
-					let thecoords = randomRoomCoords(ghostRoom)
-					let newrotation = getRandom()
-					io.emit('makeFootprint', thecoords, newrotation)
-				
-			}*/
 			io.emit('skins', players);
+			io.emit('ip', ip);
 			for(let i = 0; i<4; i++){
 				if(!players[i].disconnected){
 					totalPlayers++;
@@ -658,6 +657,8 @@ io.on('connection', (socket) => {
 		});
 		socket.on('endGame',()=>{
 			socket.broadcast.emit('endGame');
+			console.log('Game ended. Closing server')
+			http.close();
 		})
 });
 

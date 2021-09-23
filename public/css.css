@@ -34,6 +34,17 @@ body{
     left: 50%;
     transform: translate(calc(-50% - -1305px), calc(-50% - 52px));
 }
+#ipD{
+	position: absolute;
+	display: inline-block;
+	z-index: 100;
+	font-family: 'vcr';
+	font-size:30px;
+	color:white;
+	top:20px;
+	right:20px;
+	visibility: hidden;
+}
 #playerHitbox{
 	height:130px;
 	width:130px;

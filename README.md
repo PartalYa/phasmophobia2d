@@ -19,3 +19,5 @@ G - Drop/Place item
 L - Leave (when in truck)
 
 Arrow keys - Switch between cameras
+
+Tab - Check local IP

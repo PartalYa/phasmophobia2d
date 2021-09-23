@@ -387,6 +387,10 @@ socket.on('connect', ()=>{
 			slots[slotsel].itemstate--;
 		}
 	});
+	socket.on('ip',(ipS)=>{
+		ip = ipS;
+		ipD.textContent = ipS;
+	})
 	socket.on('endGame',()=>{
 		gamediv.style.display = 'none';
 		logindiv.style.display = 'block';
@@ -404,7 +408,7 @@ socket.on('connect', ()=>{
 		else{
 			namediv.textContent = 'Вы не угадали призрака. Призраком был '+possibleGhostsArray[line4].name;
 		}
-	})
+	});
 });
 
 let ghostHuntTimer;
@@ -496,6 +500,7 @@ let evpOn = false;
 let frozen = false;
 let ghostAppeared = false;
 let idleId;
+let ip;
 let flashlightMode = 0;
 let sanityMapOpen = true;
 let possibleGhostsArray = [{name:'Неизвестно'}];
@@ -967,18 +972,19 @@ function checkKeys(){
 	if(keys[90] === false){
 		maxSpeed = 40;
 	}
+	if(keys[9]){
+		ipD.style.visibility = 'visible';
+	}
+	else{
+		ipD.style.visibility = 'hidden';
+	}
 }
 function movePlayer(){
-	if(player_x>-2533 && player_y>-3665){
-		
-	}
-	if(playerName !== 'Gun Jarmash'){
 	if(player_x>933){
 		player_x=933;
 	}
 	if(player_y>3000){
 		player_y=3000;
-	}
 	}
 
 	player_xnext = player_x + speedX/10;
@@ -1414,10 +1420,10 @@ document.addEventListener("keydown", function (e) {
 						idlestreet.stop();
 						gameStarted = false;
 						if(possibleGhostsArray[line4].name == ghostType.name){
-							namediv.textContent = 'Вы угадали призрака. Призраком был '+possibleGhostsArray[line4].name;
+							namediv.textContent = 'Вы угадали призрака. Призраком был '+ghostType.name;
 						}
 						else{
-							namediv.textContent = 'Вы не угадали призрака. Призраком был '+possibleGhostsArray[line4].name;
+							namediv.textContent = 'Вы не угадали призрака. Призраком был '+ghostType.name;
 						}
 						socket.emit('endGame');
 					}
