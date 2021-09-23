@@ -455,6 +455,7 @@ let player_xnext;
 let player_ynext;
 let owidth;
 let playerName;
+let pauseMenu = false;
 let oheight;
 let mynum;
 let thermometeron = false;
@@ -1121,9 +1122,51 @@ window.addEventListener('wheel', function(event)
 });
 document.addEventListener("keydown", function (e) {
 	keys[e.keyCode] = true;
-	//console.log(e.keyCode);
+	console.log(e.keyCode);
 	if(gameStarted){
 		switch(e.keyCode){
+			case 27:
+				if(inventoryopen || miniMapOpen || sanityMapOpen || journalopen || cameraModeState){
+					shelfmenu.style.visibility = 'hidden';
+					miniMap.style.visibility = 'hidden';
+					sanityMap.style.visibility = 'hidden';
+					journalmenu.style.visibility = 'hidden';
+					inventoryopen = false;
+					miniMapOpen = false;
+					sanityMapOpen = false;
+					journalopen = false;
+					stuck = false;
+					for(let i = 0; i < shelfs.length; i++){
+						if(shelfs[i].taken){
+							document.getElementById(shelfs[i].item).style.visibility = 'hidden';
+						}
+						else{
+							document.getElementById(shelfs[i].item).style.visibility = 'visible';
+						}
+					}
+					if(cameraModeState){
+						cameraMode(false);
+					}
+					shelfmenu.style.display = 'none';
+					shelfmenu.style.visibility = 'hidden';
+					inventoryopen = true;
+					shelfmenu2.style.display = 'none';
+					shelfmenu2.style.visibility = 'hidden';
+					inventoryopen = true;
+					miniMap.style.display = 'none';
+					miniMap.style.visibility = 'hidden';
+					miniMapOpen = true;
+					sanityMap.style.display = 'none';
+					sanityMap.style.visibility = 'hidden';
+					sanityMapOpen = true;
+					journalmenu.style.display = 'none';
+					journalmenu.style.visibility = 'hidden';
+					journalopen = true;
+				}
+				else{
+					pauseMenu = !pauseMenu;
+				}
+				break;
 			case 37:
 				if(!cameraModeState){
 					player_x--;
