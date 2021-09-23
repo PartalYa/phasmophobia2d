@@ -95,7 +95,6 @@
 	</div>
 	<script defer>
 		const ipc = require('electron').ipcRenderer;
-		ipc.send('hello','i want to fucking die');
 		ipc.on('dialog-shown', () => { console.log('Yes') });
 		ipc.on('hello',(event, arg)=>{
 			console.log(arg);
