@@ -381,7 +381,6 @@ function onAppReady(){
 	// /playSound(coords, 100, true, 'Clicker_idle_26',0.4)
 	
 }
-// конец создания окна приложения ( для игры )
 //console.log('Generating player slots')
 for(let i = 0; i<4; i++){
 	players.push({
@@ -403,7 +402,6 @@ for(let i = 0; i<4; i++){
 }
 
 
-// 1 шаг - поднять обычный http сервер, он будет выдавать файлы игрокам
 
 function createServer(){
 
