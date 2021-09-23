@@ -369,7 +369,7 @@ function onAppReady(){
 		resizable:true,
 		fullscreenable:true,
 		autoHideMenuBar:true,
-		icon: 'icon.ico',
+		icon: 'icons/icon.ico',
 		backgroundColor:'#FFFFFF',
 		webPreferences:{
 			enableRemoteModule:true,
