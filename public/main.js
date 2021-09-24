@@ -16,13 +16,13 @@ socket.on('connect', ()=>{
 			serverFull = true;
 			nameinput.style.visibility = 'hidden';
 			namebutton.style.visibility = 'hidden';
-			document.getElementById('name').textContent = 'Сервер полон';
+			document.getElementById('name').textContent = 'Server is Full';
 			document.getElementById('name').style.color = '#4a0000';
 		}
 		else{
 			nameinput.style.visibility = 'visible';
 			namebutton.style.visibility = 'visible';
-			document.getElementById('name').textContent = 'Введите имя';
+			document.getElementById('name').textContent = 'Enter name';
 			document.getElementById('name').style.color = '#000000';
 			namebutton.style.visibility = 'visible';
 		}
@@ -407,6 +407,7 @@ socket.on('connect', ()=>{
 		else{
 			namediv.textContent = "You didn't get the ghost. The ghost was a "+possibleGhostsArray[line4].name;
 		}
+		
 	});
 });
 
@@ -453,7 +454,7 @@ let player_yprev = 52;
 let player_xnext;
 let player_ynext;
 let owidth;
-let playerName;
+let playerName = null;
 let pauseMenu = false;
 let oheight;
 let mynum;
@@ -503,8 +504,13 @@ let idleId;
 let ip;
 let flashlightMode = 0;
 let sanityMapOpen = true;
+let miniMapOpen = true;
 let possibleGhostsArray = [{name:'Unknown'}];
 let menu = false;
+inventoryopen = true;
+miniMapOpen = true;
+sanityMapOpen = true;
+journalopen = true;
 let proofs = [
 	'Unknown',
 	'EMF-5',
@@ -1095,7 +1101,7 @@ let truck = {
 	y2:2678
 };
 let curZoom = 1;
-let miniMapOpen = true;
+
 window.addEventListener('wheel', function(event)
 {
  if (event.deltaY > 0)
@@ -1122,18 +1128,50 @@ window.addEventListener('wheel', function(event)
 document.addEventListener("keydown", function (e) {
 	keys[e.keyCode] = true;
 	//console.log(e.keyCode);
+	if(!gameStarted){
+		switch(e.keyCode){
+			case 13:
+				if(document.getElementById('nameinput') === document.activeElement && playerName === null){
+					if(nameinput.value.length<=14 && nameinput.value.length>=2){
+						nameinput.placeholder = '';
+						playerName = document.getElementById('nameinput').value;
+						nameinput.value = ''
+						namediv.style.display = 'none';
+						lobbydiv.style.display = 'inline-block';
+						socket.emit('playerName',playerName);
+					}
+					else{
+						nameinput.value = '';
+						nameinput.placeholder = 'from 2 to 14';
+					}
+				}
+				else if(players[mynum].host && playerName != null){
+					socket.emit('startGame');
+				}
+			break;
+		}
+	}
 	if(gameStarted){
+		if(pauseMenu){
+			switch(e.keyCode){
+				case 27:
+					if(pauseMenu){
+						resumeGame()
+					}
+					else{
+						pauseGame()
+					}
+				break;
+			}
+			return;
+		}
 		switch(e.keyCode){
 			case 27:
-				if(inventoryopen || miniMapOpen || sanityMapOpen || journalopen || cameraModeState){
-					shelfmenu.style.visibility = 'hidden';
-					miniMap.style.visibility = 'hidden';
-					sanityMap.style.visibility = 'hidden';
-					journalmenu.style.visibility = 'hidden';
-					inventoryopen = false;
-					miniMapOpen = false;
-					sanityMapOpen = false;
-					journalopen = false;
+				if(!inventoryopen || !miniMapOpen || !sanityMapOpen || !journalopen || cameraModeState){
+					inventoryopen = true;
+					miniMapOpen = true;
+					sanityMapOpen = true;
+					journalopen = true;
 					stuck = false;
 					for(let i = 0; i < shelfs.length; i++){
 						if(shelfs[i].taken){
@@ -1163,7 +1201,13 @@ document.addEventListener("keydown", function (e) {
 					journalopen = true;
 				}
 				else{
-					pauseMenu = !pauseMenu;
+					console.log('you')
+					if(pauseMenu){
+						resumeGame()
+					}
+					else{
+						pauseGame()
+					}
 				}
 				break;
 			case 37:
@@ -1462,10 +1506,10 @@ document.addEventListener("keydown", function (e) {
 						idlestreet.stop();
 						gameStarted = false;
 						if(possibleGhostsArray[line4].name == ghostType.name){
-							namediv.textContent = 'Вы угадали призрака. Призраком был '+ghostType.name;
+							namediv.textContent = 'You guessed the ghost. The ghost was a '+ghostType.name;
 						}
 						else{
-							namediv.textContent = 'Вы не угадали призрака. Призраком был '+ghostType.name;
+							namediv.textContent = "You didn't guess the ghost. The ghost was a "+ghostType.name;
 						}
 						socket.emit('endGame');
 					}
@@ -2442,6 +2486,10 @@ function createPlayer(x,y,me,skin){
 	player.style.backgroundImage = 'url("player'+skin+'.png")'
 	playerMap.append(player);
 }
+let namefocus = false
+nameinput.addEventListener('click',()=>{
+	namefocus = true;
+});
 document.getElementById('namebutton').addEventListener('click',()=>{
 	if(nameinput.value.length<=14 && nameinput.value.length>=2){
 			nameinput.placeholder = '';
@@ -3323,4 +3371,25 @@ function play(n, v = 0.3){
 	    	}
 	    },au.duration*1000)
 	};
+}
+exitBtn.addEventListener('click',()=>{
+	if(players[mynum].host){
+		socket.emit('exit',true);
+		return;
+	}
+	socket.emit('exit',false);
+})
+settingsBtn.addEventListener('click',()=>{
+
+})
+resumeBtn.addEventListener('click',resumeGame);
+function pauseGame(){
+	pauseMenu = true;
+	stuck = true;
+	pauseScreen.style.display = 'inline-block'
+}
+function resumeGame(){
+	pauseMenu = false;
+	stuck = true;
+	pauseScreen.style.display = 'none'
 }

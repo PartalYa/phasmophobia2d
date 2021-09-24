@@ -643,6 +643,7 @@ body{
 	display:inline-block;
 	margin-top:10px;
 	visibility:hidden;
+	cursor: pointer;
 }
 #namebutton:hover{
 	color:black;
@@ -689,6 +690,7 @@ body{
 	display:inline-block;
 	margin-top:20px;
 	display:none;
+	cursor: pointer;
 }
 #startbuttontext{
 	position: relative;
@@ -818,4 +820,40 @@ body{
     position: absolute;
     left: -50%;
     top: -50%;
+}
+#pauseScreen{
+	position: absolute;
+	height: 100%;
+	margin:0;
+	/* background-color: black; */
+	z-index: 300;
+	display: none;
+	width: 30%;
+	right:0%;
+	color:white;
+	font-family: "vcr";
+}
+.pBtn{
+	display: block;
+    margin-bottom: 2vh;
+    /* background-color: gray; */
+    padding: 1vh;
+	cursor: pointer;
+}
+.pBtn:hover{
+	background-color: rgb(63, 63, 63);
+}
+.pBtn:active{
+	transform: translateX(1vh);
+}
+#pauseScreenBtns{
+	display: inline-block;
+    position: absolute;
+    height: 100%;
+    font-size: 6vh;
+    padding-right: 30vh;
+	right:0%;
+    padding-top: 30%;
+	padding-left: 2vh;
+	background-color: black;
 }

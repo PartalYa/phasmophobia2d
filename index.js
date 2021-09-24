@@ -24,6 +24,9 @@ const io = require('socket.io')(http);
 let port = 12321;
 const players = [];
 app.on( 'ready', onAppReady );
+app.on('before-quit', ()=>{
+	http.close();
+})
 let gameStarted = false;
 let ghostRoom;
 let ghostType;
@@ -548,7 +551,7 @@ io.on('connection', (socket) => {
 
 			io.emit('startGameS',ghostRoom,ghosts[ghostType])
 			io.emit('skins', players);
-			io.emit('ip', ip);
+			io.emit('ip', ip+':'+port);
 			for(let i = 0; i<4; i++){
 				if(!players[i].disconnected){
 					totalPlayers++;
@@ -655,10 +658,20 @@ io.on('connection', (socket) => {
 		socket.on('menu',(a)=>{
 			mainWindow.setMenu(a);
 		});
+		socket.on('exit',(a)=>{
+			if(a){
+				http.close();
+			}
+			app.exit(0);
+		});
 		socket.on('endGame',()=>{
 			socket.broadcast.emit('endGame');
 			console.log('Game ended. Closing server')
 			http.close();
+			setTimeout(()=>{
+				app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
+				app.exit(0)
+			},5000)
 		})
 });
 

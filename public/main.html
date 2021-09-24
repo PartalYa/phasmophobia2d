@@ -32,7 +32,8 @@
 		    -moz-user-select: none;
 		    -ms-user-select: none;
 		    user-select: none;
-		}
+			cursor: pointer;
+		} 
 		#hostbutton:hover{
 			color:black;
 			border:black 2px solid;
@@ -54,6 +55,7 @@
 		    -moz-user-select: none;
 		    -ms-user-select: none;
 		    user-select: none;
+			cursor: pointer;
 		}
 		#connectbutton:hover{
 			color:black;
@@ -92,7 +94,6 @@
 		</div>
 	</div>
 	<script defer>
-		let focus = 0;
 		const ipc = require('electron').ipcRenderer;
 		ipc.on('dialog-shown', () => { console.log('Yes') });
 		ipc.on('hello',(event, arg)=>{
@@ -113,17 +114,11 @@
 					window.location.href = 'http://'+connectinput.value;
 				},1);
 		});
-		document.addEventListener('click',(a)=>{
-			//console.log(a.target.id)
-			if(a.target.id == 'hostinput') focus = 1;
-			else if(a.target.id == 'connectinput') focus = 2;
-			else focus = 0;
-		})
 		document.addEventListener('keydown', (a)=>{
 			//console.log(a)
 			if(a.code === 'Enter') {
-				switch (focus){
-					case 1:
+				switch (document.activeElement){
+					case document.getElementById('hostinput'):
 						let port = Number(hostinput.value);
 						if(port > 99 && port < 65535){
 							ipc.send('show-dialog', Number(port));
@@ -132,7 +127,7 @@
 							},1);
 						}
 					break;
-					case 2:
+					case document.getElementById('connectinput'):
 						setTimeout(()=>{
 							window.location.href = 'http://'+connectinput.value;
 						},1);
