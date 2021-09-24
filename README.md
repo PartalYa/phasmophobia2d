@@ -20,4 +20,6 @@ L - Leave (when in truck)
 
 Arrow keys - Switch between cameras
 
+Escape - Pause
+
 Tab - Check local IP
