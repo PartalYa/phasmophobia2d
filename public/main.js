@@ -2849,7 +2849,7 @@ function possibleGhosts(){
 	freezingProof = false;
 	footprintProof = false;
 	spiritboxProof = false;
-	possibleGhostsArray = [{name:'Неизвестно'}]
+	possibleGhostsArray = [{name:'Unknown'}]
 	let totalProofs = 3
 	switch(line1){
 		case 0:
