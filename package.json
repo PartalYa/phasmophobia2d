@@ -24,7 +24,6 @@
     "howler": "^2.2.1",
     "morgan": "^1.10.0",
     "normalize-url": "^7.0.2",
-    "parsejson": "^0.0.3",
     "path-parse": "^1.0.7",
     "request": "^2.88.2",
     "socket.io": "^3.1.1",
