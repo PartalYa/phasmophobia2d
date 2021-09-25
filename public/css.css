@@ -40,11 +40,25 @@ body{
 	z-index: 100;
 	font-family: 'vcr';
 	font-size:30px;
-	color:white;
+	color:rgb(0, 0, 0);
 	top:20px;
 	right:20px;
-	visibility: hidden;
 }
+#ipC{
+	position: absolute;
+	display: inline-block;
+	z-index: 100;
+	font-family: 'vcr';
+	font-size:30px;
+	color:rgb(0, 0, 0);
+	top:50px;
+	right:20px;
+	cursor: pointer;
+}
+#ipC:active{
+	transform: translateX(0.3vh);
+}
+
 #playerHitbox{
 	height:130px;
 	width:130px;

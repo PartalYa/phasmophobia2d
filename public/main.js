@@ -3,8 +3,8 @@
 
 const socket_config = { transports: ['websocket'], upgrade: false, autoConnect: false };
 const {webFrame, ipcRenderer} = require('electron');
-
 const socket = io(  );
+const cb = require('clipboardy');
 ipcRenderer.on('hello',(a)=>{
 	//console.log(a);
 })
@@ -978,12 +978,6 @@ function checkKeys(){
 	if(keys[90] === false){
 		maxSpeed = 40;
 	}
-	if(keys[9]){
-		ipD.style.visibility = 'visible';
-	}
-	else{
-		ipD.style.visibility = 'hidden';
-	}
 }
 function movePlayer(){
 	if(player_x>933){
@@ -1550,7 +1544,7 @@ document.addEventListener("keydown", function (e) {
 						}
 						itemsmap.append(salt);
 						slots[slotsel].item = 0;
-						socket.emit('spawnedCamera',player_x,player_y,degree,slots[slotsel].itemstate, slots[slotsel].itemstate, curRoom);
+						socket.emit('spawnedCamera',player_x,player_y,degree,slots[slotsel].itemstate, slots[slotsel].item, curRoom);
 						slots[slotsel].itemstate = null;
 						document.getElementById('slotitem'+slotsel).style.visibility = 'hidden';
 						document.getElementById('itemHand').style.visibility = 'hidden';
@@ -3390,6 +3384,9 @@ function pauseGame(){
 }
 function resumeGame(){
 	pauseMenu = false;
-	stuck = true;
+	stuck = false;
 	pauseScreen.style.display = 'none'
 }
+ipC.addEventListener('click', ()=>{
+	cb.writeSync(ip);
+})

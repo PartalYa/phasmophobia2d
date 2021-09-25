@@ -286,84 +286,84 @@ let rooms = [
 		x:-2528,
 		y:174,
 		x2:-1838,
-		y2:881 //Malchik 1
+		y2:881
 	},
 	{
 		name:'boy',
 		x:-1838,
 		y:174,
 		x2:-1486,
-		y2:516// Malchik 2
+		y2:516
 	},
 	{
 		name:'corridor',
 		x:-1412,
 		y:-1372,
 		x2:-1089,
-		y2:96 // Koridor 1
+		y2:96
 	},
 	{
 		name:'corridor',
 		x:-1815,
 		y:-1320,
 		x2:-1486,
-		y2:92 // Koridor 2
+		y2:92
 	},
 	{
 		name:'children',
 		x:-2526,
 		y:-2080,
 		x2:-1892,
-		y2:-1007 // Detskaya
+		y2:-1007
 	},
 	{
 		name:'bedroom',
 		x:-2524,
 		y:-2868,
 		x2:-1493,
-		y2:-2169 // Spalna
+		y2:-2169
 	},
 	{
 		name:'laundry',
 		x:-691,
 		y:-1713,
 		x2:-60,
-		y2:-1015 // Прачечная
+		y2:-1015
 	},
 	{
 		name:'garage',
 		x:-740,
 		y:-928,
 		x2:933,
-		y2:861 // Гараж
+		y2:861
 	},
 	{
 		name:'livingroom',
 		x:-1421,
 		y:-3218,
 		x2:-417,
-		y2:-1765 // Гостинная
+		y2:-1765
 	},
 	{
 		name:'kitchen',
 		x:-14,
 		y:-3207,
 		x2:933,
-		y2:-997 // kuhna
+		y2:-997
 	},
 	{
 		name:'basement',
 		x:-4206,
 		y:-3215,
 		x2:-3415,
-		y2:-3022 // Подвал 1
+		y2:-3022
 	},
 	{
 		name:'basement',
 		x:-3565,
 		y:-3018,
 		x2:-3419,
-		y2:-2598 // Подвал 2
+		y2:-2598
 	},
 ]
 let totalPlayers = 0;
@@ -457,6 +457,7 @@ io.on('connection', (socket) => {
 				}
 			}
 		})
+		socket.emit('ip', ip+':'+port);
 		if(playerCount>=4 || gameStarted){
 			socket.emit('serverFull',true);
 		}
@@ -551,7 +552,6 @@ io.on('connection', (socket) => {
 
 			io.emit('startGameS',ghostRoom,ghosts[ghostType])
 			io.emit('skins', players);
-			io.emit('ip', ip+':'+port);
 			for(let i = 0; i<4; i++){
 				if(!players[i].disconnected){
 					totalPlayers++;
