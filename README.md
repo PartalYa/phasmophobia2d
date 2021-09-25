@@ -22,8 +22,6 @@ Arrow keys - Switch between cameras
 
 Escape - Pause
 
-Tab - Check local IP
-
 ## How to play
 
 Open terminal in the game directory and type (be sure to have NodeJs)
