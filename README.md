@@ -33,3 +33,5 @@ After the installation type
 ```node
 >npm start
 ```
+
+Kinda scuffed
