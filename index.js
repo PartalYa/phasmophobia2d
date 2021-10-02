@@ -384,6 +384,7 @@ function onAppReady(){
 		}
 	})
 	mainWindow.loadFile('public/main.html');
+	mainWindow.setMenu(null)
 	//mainWindow.setMenu(null);
 	// /playSound(coords, 100, true, 'Clicker_idle_26',0.4)
 	

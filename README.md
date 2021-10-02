@@ -8,6 +8,8 @@ WASD - Movement
 
 Shift - Sprint
 
+Ctrl - Crouch
+
 E - Interact
 
 1-3 - Change item slots

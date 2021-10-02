@@ -790,7 +790,7 @@ let shelfs2 = [
 socket.emit('myItems', slots, slotsel);
 changeItem();
 document.getElementById('slot0').style.backgroundImage = 'url("slot.png")';
-for(let i=0; i<90; i++){
+for(let i=0; i<=90; i++){
 	keys[i] = false;
 }
 
@@ -947,35 +947,32 @@ let fc = new FpsCtrl(frames, function(e) {
 });
 fc.start();
 function checkKeys(){
-	if(keys[87]==true){
+	if(keys[upBtn]==true){
 		speedY = -maxSpeed;
 	}
-	else if(keys[83]==true){
+	else if(keys[dwBtn]==true){
 		speedY = maxSpeed;
 	}
-	if(keys[68]==true){
+	if(keys[rgBtn]==true){
 		speedX = maxSpeed;
 	}
-	else if(keys[65]==true){
+	else if(keys[ltBtn]==true){
 		speedX = -maxSpeed;
 	}
-	if(keys[87] == false && keys[83] == false){
+	if(keys[upBtn] == false && keys[dwBtn] == false){
 		speedY = 0;
 	}
-	if(keys[68] == false && keys[65] == false){
+	if(keys[rgBtn] == false && keys[ltBtn] == false){
 		speedX = 0;
 	}
 
-	if(keys[16] === true){
+	if(keys[speBtn] === true){
 		maxSpeed = 60;
 	}
-	if(keys[16] === false){
-		maxSpeed = 40;
-	}
-	if(keys[90] === true){
+	if(keys[slBtn] === true){
 		maxSpeed = 20;
 	}
-	if(keys[90] === false){
+	if(keys[slBtn] === false && keys[speBtn] === false){
 		maxSpeed = 40;
 	}
 }
@@ -1148,7 +1145,7 @@ document.addEventListener("keydown", function (e) {
 	if(gameStarted){
 		if(pauseMenu){
 			switch(e.keyCode){
-				case 27:
+				case pauseBtn:
 					if(pauseMenu){
 						resumeGame()
 					}
@@ -1160,7 +1157,8 @@ document.addEventListener("keydown", function (e) {
 			return;
 		}
 		switch(e.keyCode){
-			case 27:
+			case pauseBtn:
+				// 27
 				if(!inventoryopen || !miniMapOpen || !sanityMapOpen || !journalopen || cameraModeState){
 					inventoryopen = true;
 					miniMapOpen = true;
@@ -1204,9 +1202,10 @@ document.addEventListener("keydown", function (e) {
 					}
 				}
 				break;
-			case 37:
+			case arlBtn:
+				// 37
 				if(!cameraModeState){
-					player_x--;
+					//player_x--;
 				}
 				else{
 					lastCameraSelected--
@@ -1216,9 +1215,10 @@ document.addEventListener("keydown", function (e) {
 					cameraMode(true)
 				}
 				break;
-			case 39:
+			case arrBtn:
+				// 39
 				if(!cameraModeState){
-					player_x++;
+					//player_x++;
 				}
 				else{
 					lastCameraSelected++
@@ -1228,13 +1228,8 @@ document.addEventListener("keydown", function (e) {
 					cameraMode(true)
 				}
 				break;
-			case 38:
-				player_y--;
-				break;
-			case 40:
-				player_y++;
-				break;
-			case 49:
+			case fslBtn:
+				// 49
 				sH();
 				slotsel = 0;
 				if(holdingCamera){
@@ -1263,7 +1258,8 @@ document.addEventListener("keydown", function (e) {
 				document.getElementById('slot2').style.backgroundImage = 'url("slot2.png")';
 				document.getElementById('slot3').style.backgroundImage = 'url("slot2.png")';
 				break;
-			case 32:
+			case hideBtn:
+				// 32
 				if (handHidden){
 					document.getElementById('itemHand').style.visibility = 'visible'
 				}
@@ -1273,7 +1269,8 @@ document.addEventListener("keydown", function (e) {
 				handHidden = !handHidden;
 
 				break;
-			case 50:
+			case sslBtn:
+				// 50
 				sH();
 				slotsel = 1;
 				if(holdingCamera){
@@ -1302,7 +1299,8 @@ document.addEventListener("keydown", function (e) {
 				document.getElementById('slot2').style.backgroundImage = 'url("slot2.png")';
 				document.getElementById('slot3').style.backgroundImage = 'url("slot2.png")';
 				break;
-			case 51:
+			case tslBtn:
+				// 51
 				sH();
 				slotsel = 2;
 				if(holdingCamera){
@@ -1331,7 +1329,8 @@ document.addEventListener("keydown", function (e) {
 				document.getElementById('slot2').style.backgroundImage = 'url("slot.png")';
 				document.getElementById('slot3').style.backgroundImage = 'url("slot2.png")';
 				break;
-			case 69:
+			case pickBtn:
+				// 69
 				if(cameraModeState){
 					cameraMode(false);
 				}
@@ -1448,8 +1447,8 @@ document.addEventListener("keydown", function (e) {
 					}
 				}
 				break;
-			case 74:
-			
+			case jourBtn:
+				// 74
 					if(journalopen){
 						stuck = true;
 						journalmenu.style.visibility = 'visible';
@@ -1464,7 +1463,8 @@ document.addEventListener("keydown", function (e) {
 					}
 				
 				break;
-			case 76:
+			case leaveBtn:
+				// 76
 				owidth = 811 + 825
 				oheight = 2613 - 2161
 				//console.log('help')
@@ -1510,13 +1510,12 @@ document.addEventListener("keydown", function (e) {
 					
 				}
 				break;
-			case 77:
-				
-				break;
-			case 70:
+			case useBtn:
+				// 70
 				useItem();
 				break;
-			case 71:
+			case dropBtn:
+				// 71
 				if(evpOn){
 					evpOn = false;
 					evploop.pause()
