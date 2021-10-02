@@ -842,10 +842,28 @@ body{
 	/* background-color: black; */
 	z-index: 300;
 	display: none;
-	width: 30%;
+	width: 50%;
 	right:0%;
 	color:white;
 	font-family: "vcr";
+}
+#pauseMenu{
+	display: inline-block;
+	white-space: nowrap;
+}
+#settingsMenu{
+	display: none;
+    position: absolute;
+    height: 100%;
+    font-size: 3vh;
+    padding-right: 30vh;
+	right:0%;
+    padding-top: 5%;
+	padding-left: 2vh;
+	background-color: black;
+	width: 40%;
+	top:0;
+	white-space: nowrap;
 }
 .pBtn{
 	display: block;
@@ -853,9 +871,7 @@ body{
     /* background-color: gray; */
     padding: 1vh;
 	cursor: pointer;
-}
-.pBtn:hover{
-	background-color: rgb(63, 63, 63);
+	font-size: 6vh;
 }
 .pBtn:active{
 	transform: translateX(1vh);
@@ -870,4 +886,28 @@ body{
     padding-top: 30%;
 	padding-left: 2vh;
 	background-color: black;
+	width: 40%;
+	top:0;
+}
+.keyDiv{
+	display: block;
+	padding:.5vh;
+	color: rgb(189, 189, 189);
+	margin-left: 3vh;
+
+}
+.keyBtn{
+	display: inline-block;
+	cursor: pointer;
+	color: white;
+}
+.keyBtn:active{
+	transform: translateX(.5vh);
+}
+#resetBtn{
+	font-size: 3vh;
+	margin-left: 3vh;
+}
+#resetBtn:active{
+	transform: translateX(.5vh);
 }

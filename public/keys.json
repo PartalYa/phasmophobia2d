@@ -1,0 +1,20 @@
+{
+  "pauseBtn": 27,
+  "arlBtn": 37,
+  "arrBtn": 39,
+  "fslBtn": 49,
+  "hideBtn": 32,
+  "sslBtn": 50,
+  "tslBtn": 51,
+  "pickBtn": 84,
+  "jourBtn": 74,
+  "leaveBtn": 76,
+  "useBtn": 70,
+  "dropBtn": 71,
+  "upBtn": 87,
+  "dwBtn": 83,
+  "rgBtn": 68,
+  "ltBtn": 65,
+  "speBtn": 16,
+  "slBtn": 17
+}

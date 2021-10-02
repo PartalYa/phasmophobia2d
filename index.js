@@ -20,6 +20,10 @@ ipcMain.on('hello',(event, arg)=>{
 	event.reply('hello',arg);
 	console.log(arg)
 });
+ipcMain.on('path',(event, arg)=>{
+	event.reply('hello',__dirname);
+	console.log(arg)
+});
 const io = require('socket.io')(http);
 let port = 12321;
 const players = [];
@@ -384,7 +388,8 @@ function onAppReady(){
 		}
 	})
 	mainWindow.loadFile('public/main.html');
-	mainWindow.setMenu(null)
+	console.log(app.getPath('userData'))
+	console.log(__dirname)
 	//mainWindow.setMenu(null);
 	// /playSound(coords, 100, true, 'Clicker_idle_26',0.4)
 	
