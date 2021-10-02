@@ -14,9 +14,13 @@ E - Interact
 
 1-3 - Change item slots
 
+Space - Hide item
+
 F - Use item
 
 G - Drop/Place item
+
+J - Journal
 
 L - Leave (when in truck)
 

@@ -11,6 +11,9 @@
 		<script defer src='obstacles.js'></script>
 		<script defer src='sounds.js'></script>
 		<script defer src='keys.js'></script>
+		<script defer src='keyNames.js'></script>
+		<script defer src='vars.js'></script>
+		<script defer src='functions.js'></script>
 		<script defer src='main.js'></script>
 		<script defer src='SeamlessLoop.js'></script>
 		<script src="/Howl/howler.js/dist/howler.js"></script>
@@ -57,16 +60,42 @@
 		</div>
 		<div id='gamediv'>
 			<div id='pauseScreen'>
-				<div id='pauseScreenBtns'>
-					<div id='resumeBtn' class='pBtn'>
-						Resume
+				<div id='pauseMenu'>
+					<div id='pauseScreenBtns'>
+						<div id='resumeBtn' class='pBtn'>
+							> Resume
+						</div>
+						<div id='settingsBtn' class='pBtn'>
+							> Settings
+						</div>
+						<div id='exitBtn' class='pBtn'>
+							> Exit
+						</div>
 					</div>
-					<div id='settingsBtn' class='pBtn'>
-						Settings
+				</div>
+				<div id='settingsMenu'>
+					<div id='buttons'>
+						<div id='backBtn'class = 'pBtn'>> Back</div>
+						<div class = 'keyDiv'>Up: <div class = 'keyBtn' id='upBtn'>W</div></div>
+						<div class = 'keyDiv'>Down: <div class = 'keyBtn' id='dwBtn'>S</div></div>
+						<div class = 'keyDiv'>Left: <div class = 'keyBtn' id='ltBtn'>A</div></div>
+						<div class = 'keyDiv'>Right: <div class = 'keyBtn' id='rgBtn'>D</div></div>
+						<div class = 'keyDiv'>Sprint: <div class = 'keyBtn' id='speBtn'>SHIFT</div></div>
+						<div class = 'keyDiv'>Crouch: <div class = 'keyBtn' id='slBtn'>CONTROL</div></div>
+						<div class = 'keyDiv'>Interact: <div class = 'keyBtn' id='pickBtn'>E</div></div>
+						<div class = 'keyDiv'>Slot 1: <div class = 'keyBtn' id='fslBtn'>1</div></div>
+						<div class = 'keyDiv'>Slot 2: <div class = 'keyBtn' id='sslBtn'>2</div></div>
+						<div class = 'keyDiv'>Slot 3: <div class = 'keyBtn' id='tslBtn'>3</div></div>
+						<div class = 'keyDiv'>Hide item: <div class = 'keyBtn' id='hideBtn'>SPACE</div></div>
+						<div class = 'keyDiv'>Use: <div class = 'keyBtn' id='useBtn'>F</div></div>
+						<div class = 'keyDiv'>Drop: <div class = 'keyBtn' id='dropBtn'>G</div></div>
+						<div class = 'keyDiv'>Journal: <div class = 'keyBtn' id='jourBtn'>J</div></div>
+						<div class = 'keyDiv'>Leave: <div class = 'keyBtn' id='leaveBtn'>L</div></div>
+						<div class = 'keyDiv'>Prev. Camera: <div class = 'keyBtn' id='arlBtn'>ARROW LEFT</div></div>
+						<div class = 'keyDiv'>Next Camera: <div class = 'keyBtn' id='arrBtn'>ARROW RIGHT</div></div>
+						<div class = 'keyDiv'>Pause: <div class = 'keyBtn' id='pauseBtn'>ESCAPE</div></div>
 					</div>
-					<div id='exitBtn' class='pBtn'>
-						Exit
-					</div>
+					<div class='pBtn' id='resetBtn'>> Reset</div>
 				</div>
 			</div>
 			<div id='light'>
