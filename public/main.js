@@ -18,7 +18,7 @@ console.log(pathTo);
 const socket = io(  );
 const fs = require('fs');
 const keysFileName = './public/keys.json';
-const kFJ = fs.readFileSync(pathTo);
+const kFJ = fs.readFileSync(keysFileName);
 const kF = JSON.parse(kFJ);
 const cb = require('clipboardy');
 let pathE;

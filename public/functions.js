@@ -1401,7 +1401,7 @@ function resetKeys(){
 	}
 }
 function saveKeys(){
-	fs.writeFile(pathTo, JSON.stringify(kF, null, 2), function writeJSON(err) {
+	fs.writeFile(keysFileName, JSON.stringify(kF, null, 2), function writeJSON(err) {
 		if (err) return console.log(err);
 		loadKeys();
 	});
