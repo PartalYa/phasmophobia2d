@@ -7,14 +7,14 @@ const path = require('path')
 const ipc = require('electron').ipcRenderer;
 let execPath
 execPath = path.dirname(remote.app.getPath('exe'))
-console.log(execPath);
+//console.log(execPath);
 let execPathSplit = execPath.split('\\');
 let pathTo = execPathSplit[0];
 for (let i = 1; i < execPathSplit.length; i++) {
 	pathTo = pathTo.concat('/', execPathSplit[i])
 }
 pathTo = pathTo.concat('/','Resources','/','app','/','public','/','keys.json')
-console.log(pathTo);
+//console.log(pathTo);
 const socket = io(  );
 const fs = require('fs');
 const keysFileName = './public/keys.json';
@@ -23,10 +23,10 @@ const kF = JSON.parse(kFJ);
 const cb = require('clipboardy');
 let pathE;
 ipcRenderer.on('hello',(a,b)=>{
-	console.log(b);
+	//console.log(b);
 })
 ipcRenderer.on('path',(a,b)=>{
-	console.log(b);
+	//console.log(b);
 	pathE = b
 })
 socket.on('connect', ()=>{
@@ -1170,6 +1170,10 @@ document.addEventListener("keydown", function (e) {
 						webFrame.setZoomFactor(curZoom)
 						socket.emit('zoom', curZoom)
 					}
+				break;
+				case 73:
+					if(keys[16] && keys[17]) ipc.send('path', null);
+				break;
 			}
 		}
 	}
@@ -1220,15 +1224,12 @@ shelfmenu.addEventListener('click', (e)=>{
 						}
 						for(let i = 0; i < shelfs2.length; i++){
 							if(slots[slotsel].item == shelfs2[i].item){
-								console.log('a')
 								shelfs2[i].taken = false;
 								shelfs2[i].itemstate = slots[slotsel].itemstate;
 							}
 						}
-						console.log(slots[slotsel].item)
 						document.getElementById(slots[slotsel].item).style.visibility = 'visible';
 						for(let i = 0; i < shelfs.length; i++){
-							console.log('b')
 							if(shelfs[i].item == slots[slotsel].item){
 								shelfs[i].taken = false;
 								shelfs[i].itemstate = slots[slotsel].itemstate;

@@ -7,10 +7,10 @@ require('dns').lookup(require('os').hostname(), function (err, add, fam) {
 const { app, BrowserWindow, ipcMain } = require( 'electron' );
 const express = require('express');
 const ap = express();
-let win;
+let renderWin;
 const http = require('http').createServer(ap);
 ipcMain.on('show-dialog',(a,b)=>{
-	win = a;
+	renderWin = a;
 	a.reply('hello','Received '+b)
 	console.log('Received start server command')
 	port = b;
@@ -21,8 +21,7 @@ ipcMain.on('hello',(event, arg)=>{
 	console.log(arg)
 });
 ipcMain.on('path',(event, arg)=>{
-	event.reply('hello',__dirname);
-	console.log(arg)
+	win.webContents.openDevTools()
 });
 const io = require('socket.io')(http);
 let port = 12321;
@@ -40,6 +39,7 @@ let realActivity = 0;
 let activity = 0;
 let chance; 
 let anger = 0.2;
+let win;
 let chanceCo = 0;
 let shelfs = [
 	{
@@ -388,11 +388,9 @@ function onAppReady(){
 		}
 	})
 	mainWindow.loadFile('public/main.html');
-	console.log(app.getPath('userData'))
-	console.log(__dirname)
-	//mainWindow.setMenu(null);
+	mainWindow.setMenu(null);
 	// /playSound(coords, 100, true, 'Clicker_idle_26',0.4)
-	
+	win = mainWindow;
 }
 //console.log('Generating player slots')
 for(let i = 0; i<4; i++){
