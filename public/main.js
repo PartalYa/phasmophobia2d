@@ -653,7 +653,7 @@ window.addEventListener('wheel', function(event)
 });
 document.addEventListener("keydown", function (e) {
 	keys[e.keyCode] = true;
-	console.log(e.keyCode);
+	//console.log(e.keyCode);
 	if(focusedKey === null){
 		if(!gameStarted){
 			switch(e.keyCode){
@@ -1198,6 +1198,7 @@ shelfmenu.addEventListener('click', (e)=>{
 	if(e.target.id != "shelfmenu"){
 				if(slots[slotsel].item != e.target.id){
 					if(slots[slotsel].item!=0){
+						console.log('beta')
 						if(evpOn){
 							slots[slotsel].itemstate = false;
 							evpOn = false;
@@ -1219,16 +1220,20 @@ shelfmenu.addEventListener('click', (e)=>{
 						}
 						for(let i = 0; i < shelfs2.length; i++){
 							if(slots[slotsel].item == shelfs2[i].item){
+								console.log('a')
 								shelfs2[i].taken = false;
+								shelfs2[i].itemstate = slots[slotsel].itemstate;
 							}
 						}
+						console.log(slots[slotsel].item)
 						document.getElementById(slots[slotsel].item).style.visibility = 'visible';
-						for(let i=0;i<shelfs.length;i++){
-						if(shelfs[i].item == slots[slotsel].item){
-							shelfs[i].itemstate = slots[slotsel].itemstate;
-							break;
+						for(let i = 0; i < shelfs.length; i++){
+							console.log('b')
+							if(shelfs[i].item == slots[slotsel].item){
+								shelfs[i].taken = false;
+								shelfs[i].itemstate = slots[slotsel].itemstate;
+							}
 						}
-					}
 					if(holdingCamera){
 						holdingCamera = false;
 						totalCameras--
@@ -1359,15 +1364,16 @@ shelfmenu2.addEventListener('click', (e)=>{
 						for(let i = 0; i < shelfs2.length; i++){
 							if(slots[slotsel].item == shelfs2[i].item){
 								shelfs2[i].taken = false;
+								shelfs2[i].itemstate = slots[slotsel].itemstate;
 							}
 						}
 						document.getElementById(slots[slotsel].item).style.visibility = 'visible';
 						for(let i=0;i<shelfs2.length;i++){
-						if(shelfs2[i].item == slots[slotsel].item){
-							shelfs2[i].itemstate = slots[slotsel].itemstate;
-							break;
+							if(shelfs[i].item == slots[slotsel].item){
+								shelfs[i].taken = false;
+								shelfs[i].itemstate = slots[slotsel].itemstate;
+							}
 						}
-					}
 					if(holdingCamera){
 						holdingCamera = false;
 						totalCameras--
